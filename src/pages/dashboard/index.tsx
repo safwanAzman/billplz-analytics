@@ -28,7 +28,7 @@ export const dataPiePayment = [
     ["E-wallet", 900],
 ];
 
-export default function dashboard() {
+export default function Dashboard() {
     const [selected, setSelected] = useState(optionFilterDate[2])
     const [loading, setLoading] = useState<boolean>(false)
 

@@ -7,7 +7,7 @@ interface LayoutsProps {
     children?: ReactNode,
 }
 
-export default function layouts({children}:LayoutsProps) {
+export default function Layouts({children}:LayoutsProps) {
     const [showMobileSidebar, setShowMobileSidebar] = useState(false)
 
     const toggleMobileSidebar = () => {

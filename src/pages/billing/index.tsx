@@ -27,7 +27,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 
-export default function billingPage() {
+export default function BillingPage() {
     const [selected, setSelected] = useState(optionFilterDate[2])
     const [openFilterModal, setOpenFilterModal] = useState<boolean>(false)
     return (

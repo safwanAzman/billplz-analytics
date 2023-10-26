@@ -2,7 +2,7 @@ import React , { useState } from 'react'
 import Container from '@/components/container';
 import GeneralModal from '@/components/modal/general-modal';
 
-export default function subscription() {
+export default function Subscription() {
     const [openSubModal, setOpenSubModal] = useState<boolean>(false)
     const [typePlan, setTypePlan] = useState({
         type: "",
