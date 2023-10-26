@@ -103,7 +103,6 @@ export default function Dashboard() {
     const getActiveInactive = async () => {
         readActiveInactive(
             setActiveInactive,
-            setLoading
         )
     };
 
@@ -112,7 +111,6 @@ export default function Dashboard() {
     const getPaymentMethod = async () => {
         readPaymentMethod(
             setPaymentMethod,
-            setLoading
         )
         console.log(paymentMethod);
     };

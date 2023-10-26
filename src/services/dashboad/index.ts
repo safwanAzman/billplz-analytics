@@ -118,7 +118,6 @@ export const readTop5Performing =  async (
 
 export const readActiveInactive =  async ( 
     setActiveInactive: React.Dispatch<React.SetStateAction<number>>,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/active-inactive-collection`);
@@ -131,7 +130,6 @@ export const readActiveInactive =  async (
 
 export const readPaymentMethod =  async ( 
     setPaymentMethod: React.Dispatch<React.SetStateAction<number>>,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/payment-collection`);
