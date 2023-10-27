@@ -1,11 +1,11 @@
-export const data = [
+    export const data = [
     {
         "id": 1,
         "collection_name": "Tuition Fees",
         "collection_id": "cfxwubv",
         "total_collected": 10000.00,
-        "status" : "active",
-        "created_at":"2022-01-31",
+        "status": "active",
+        "created_at": "2022-01-31",
         "volume": 1
     },
     {
@@ -13,8 +13,8 @@ export const data = [
         "collection_name": "Collection 2",
         "collection_id": "f7jaczeh",
         "total_collected": 50.00,
-        "status" : "active",
-        "created_at":"2023-02-31",
+        "status": "active",
+        "created_at": "2023-02-28",
         "volume": 4
     },
     {
@@ -22,8 +22,8 @@ export const data = [
         "collection_name": "Collection 3",
         "collection_id": "xyz123",
         "total_collected": 100.00,
-        "status" : "active",
-        "created_at":"2022-03-31",
+        "status": "active",
+        "created_at": "2022-03-31",
         "volume": 3
     },
     {
@@ -31,8 +31,8 @@ export const data = [
         "collection_name": "Collection 4",
         "collection_id": "abc456",
         "total_collected": 1200.00,
-        "status" : "inactive",
-        "created_at":"2023-04-31",
+        "status": "inactive",
+        "created_at": "2023-04-30",
         "volume": 1
     },
     {
@@ -40,17 +40,17 @@ export const data = [
         "collection_name": "Collection 5",
         "collection_id": "def789",
         "total_collected": 5000.00,
-        "status" : "inactive",
-        "created_at":"2023-05-31",
+        "status": "inactive",
+        "created_at": "2023-05-31",
         "volume": 4
     },
     {
         "id": 6,
         "collection_name": "Collection 6",
         "collection_id": "uvw101",
-        "total_collected":10000.00,
-        "status" : "active",
-        "created_at":"2023-06-31",
+        "total_collected": 10000.00,
+        "status": "active",
+        "created_at": "2023-06-30",
         "volume": 2
     },
     {
@@ -58,8 +58,8 @@ export const data = [
         "collection_name": "Collection 7",
         "collection_id": "pqr303",
         "total_collected": 50.00,
-        "status" : "inactive",
-        "created_at":"2022-07-31",
+        "status": "inactive",
+        "created_at": "2022-07-31",
         "volume": 1
     },
     {
@@ -67,8 +67,8 @@ export const data = [
         "collection_name": "Collection 8",
         "collection_id": "lmn404",
         "total_collected": 100.00,
-        "status" : "inactive",
-        "created_at":"2023-08-31",
+        "status": "inactive",
+        "created_at": "2023-08-31",
         "volume": 4
     },
     {
@@ -76,8 +76,8 @@ export const data = [
         "collection_name": "Collection 9",
         "collection_id": "rst505",
         "total_collected": 1200.00,
-        "status" : "active",
-        "created_at":"2023-09-31",
+        "status": "active",
+        "created_at": "2023-09-30",
         "volume": 5
     },
     {
@@ -85,18 +85,17 @@ export const data = [
         "collection_name": "Collection 10",
         "collection_id": "ghi606",
         "total_collected": 50000,
-        "status" : "active",
-        "created_at":"2022-10-31",
+        "status": "active",
+        "created_at": "2022-10-31",
         "volume": 7
     },
-
     {
         "id": 11,
         "collection_name": "Collection 2",
         "collection_id": "f7jaczeh",
         "total_collected": 50.00,
-        "status" : "inactive",
-        "created_at":"2022-02-31",
+        "status": "inactive",
+        "created_at": "2022-02-28",
         "volume": 5
-    },
-]
+    }
+];

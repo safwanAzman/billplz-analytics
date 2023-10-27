@@ -21,13 +21,10 @@ import {
 } 
 from "@tremor/react";
 
-import { 
-    readTop5Performing,
-    readTotalCollection
-} from '@/services/billing';
-
+import { BillingService , CollectionItem} from '@/services/billing';
 
 export default function BillingPage() {
+
     const [selected, setSelected] = useState(optionFilterDate[2])
     const [openFilterModal, setOpenFilterModal] = useState<boolean>(false)
     const [search, setSearch] = useState('');
@@ -35,6 +32,12 @@ export default function BillingPage() {
     const [filterDate, setFilterDate] = useState<DateRangePickerValue>({});
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
+
+    const [totalCollection, setTotalCollection] = useState<CollectionItem[]>([])
+    const [totalCollectionActive, setTotalCollectionActive] = useState<CollectionItem[]>([])
+    const [totalCollectionInActive, setTotalCollectionInActive] = useState<CollectionItem[]>([])
+
+    const [top5Performing, setTop5Performing] = useState<CollectionItem[]>([])
     
     const updateFilter = (newSearch:string , newFilterDate: DateRangePickerValue) => {
         setSearch(newSearch)
@@ -47,32 +50,35 @@ export default function BillingPage() {
         setFilterDate({})
     };
 
+    const getData = async () => {
+        try {
+        const [
+            totalCollectionData,
+            top5PerformingData,
+        ] = await Promise.all([
+            BillingService.readTotalCollection(),
+            BillingService.readTop5Performing(),
+        ]);
 
-    //top 5 Peforming Collections
-    const [top5Performing, setTop5Performing] = useState<any>([])
-    const getTop5Performing = async () => {
-        readTop5Performing(
-            setTop5Performing,
-        )
-    };
+        //colections
+        const activeData = totalCollectionData.filter((item:any) => item.status === 'active');
+        const inactiveData = totalCollectionData.filter((item:any) => item.status === 'inactive');
+        setTotalCollection(totalCollectionData);
+        setTotalCollectionActive(activeData);
+        setTotalCollectionInActive(inactiveData);
 
-    //Total Collection 
-    const [totalCollection, setTotalCollection] = useState<any>([])
-    const [totalCollectionActive, setTotalCollectionActive] = useState<any>([])
-    const [totalCollectionInActive, setTotalCollectionInActive] = useState<any>([])
+        //Top 5 Performing
+        setTop5Performing(top5PerformingData);
 
-    const getTotalCollection = async () => {
-        readTotalCollection(
-            setTotalCollection,
-            setTotalCollectionActive,
-            setTotalCollectionInActive,
-        )
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useEffect(() => {
-        getTop5Performing();
-        getTotalCollection();
-    }, [])
+        getData();
+    }, []);
+
 
     return (
         <Container 
@@ -148,7 +154,7 @@ export default function BillingPage() {
                                     <h1 className="text-lg font-semibold text-green-500">RM 10,000.00</h1>
                                 </div>
                             </div>
-                            <div className="bg-white p-4 rounded-md shadow-md">
+                            <div className="bg-white border p-4 rounded-md shadow-md">
                                 <div className="space-y-2">
                                     <p className="text-xs text-gray-500">Total Collections</p>
                                     <h1 className="text-lg font-semibold">10</h1>

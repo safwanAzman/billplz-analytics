@@ -9,9 +9,7 @@ import { LineChart } from "@tremor/react";
 import { Chart } from "react-google-charts";
 import { ArrowUpIcon,ArrowDownIcon,QuestionMarkCircleIcon} from '@heroicons/react/24/outline'
 import {moneyFormat,dateFormat,calculateTotalForYear,calculatePercentageChange} from '@/utils/formartter'
-import { DashboardService} from '@/services/dashboad';
-
-interface CollectionItem {}
+import { DashboardService ,CollectionItem} from '@/services/dashboad';
 
 export default function Dashboard() {
     const [selected, setSelected] = useState(optionFilterDate[2])

@@ -1,6 +1,6 @@
 import { fetchData } from "@/helpers/fetchData";
 
-interface CollectionItem {
+export interface CollectionItem {
     id: number;
     title: string;
     total: number;
