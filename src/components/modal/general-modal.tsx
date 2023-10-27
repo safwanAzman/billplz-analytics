@@ -18,7 +18,7 @@ export default function generalModal({children,openModal,onClose,title,size,head
             lg: "max-w-lg",
             xl: "max-w-xl",
         }[size] || "max-w-2xl"
-        : "max-w-2xl";
+        : "lg:max-w-2xl";
     return (
         <>
         {openModal ?

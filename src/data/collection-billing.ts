@@ -5,7 +5,7 @@ export const data = [
         "collection_id": "cfxwubv",
         "total_collected": 10000.00,
         "status" : "active",
-        "created_at":"2023-01-31",
+        "created_at":"2022-01-31",
         "volume": 1
     },
     {
@@ -13,7 +13,7 @@ export const data = [
         "collection_name": "Collection 2",
         "collection_id": "f7jaczeh",
         "total_collected": 50.00,
-        "status" : "inactive",
+        "status" : "active",
         "created_at":"2023-02-31",
         "volume": 4
     },
@@ -23,7 +23,7 @@ export const data = [
         "collection_id": "xyz123",
         "total_collected": 100.00,
         "status" : "active",
-        "created_at":"2023-03-31",
+        "created_at":"2022-03-31",
         "volume": 3
     },
     {
@@ -59,7 +59,7 @@ export const data = [
         "collection_id": "pqr303",
         "total_collected": 50.00,
         "status" : "inactive",
-        "created_at":"2023-07-31",
+        "created_at":"2022-07-31",
         "volume": 1
     },
     {
@@ -86,7 +86,17 @@ export const data = [
         "collection_id": "ghi606",
         "total_collected": 50000,
         "status" : "active",
-        "created_at":"2023-10-31",
+        "created_at":"2022-10-31",
         "volume": 7
-    }
+    },
+
+    {
+        "id": 11,
+        "collection_name": "Collection 2",
+        "collection_id": "f7jaczeh",
+        "total_collected": 50.00,
+        "status" : "inactive",
+        "created_at":"2022-02-31",
+        "volume": 5
+    },
 ]

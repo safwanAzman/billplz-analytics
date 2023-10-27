@@ -1,5 +1,4 @@
-import React,{useState} from 'react'
-import Link from 'next/link';
+import React,{useState,useEffect} from 'react'
 import Container from '@/components/container';
 import FilterDate from '@/components/menu/filter-date';
 import BarList from '@/components/chart/bar-list';
@@ -7,8 +6,8 @@ import ColectionTable from '@/components/table/collections-table';
 import GeneralModal from '@/components/modal/general-modal';
 import {optionFilterDate} from '@/shared/option/option-date-data';
 import {chartdata} from '@/shared/data/line-chart-data';
-import { collectionData } from '@/shared/data/collection-data';
-import { collectionTop5Data } from '@/shared//data/collection-top5-data';
+import { ArrowUpIcon,MagnifyingGlassIcon,FunnelIcon} from '@heroicons/react/24/outline'
+import {moneyFormat} from '@/utils/formartter'
 import { 
     LineChart, 
     Tab,
@@ -17,19 +16,64 @@ import {
     TabPanel,
     TabPanels,
     TextInput,
-    DateRangePicker
+    DateRangePicker,
+    DateRangePickerValue
 } 
 from "@tremor/react";
+
 import { 
-    ArrowUpIcon,
-    MagnifyingGlassIcon,
-    FunnelIcon
-} from '@heroicons/react/24/outline'
+    readTop5Performing,
+    readTotalCollection
+} from '@/services/billing';
 
 
 export default function BillingPage() {
     const [selected, setSelected] = useState(optionFilterDate[2])
     const [openFilterModal, setOpenFilterModal] = useState<boolean>(false)
+    const [search, setSearch] = useState('');
+
+    const [filterDate, setFilterDate] = useState<DateRangePickerValue>({});
+    const [startDate, setStartDate] = useState<Date | null>(null);
+    const [endDate, setEndDate] = useState<Date | null>(null);
+    
+    const updateFilter = (newSearch:string , newFilterDate: DateRangePickerValue) => {
+        setSearch(newSearch)
+        setStartDate(newFilterDate.from || null);
+        setEndDate(newFilterDate.to || null);
+    };
+
+    const resetFilter = () => {
+        setSearch('')
+        setFilterDate({})
+    };
+
+
+    //top 5 Peforming Collections
+    const [top5Performing, setTop5Performing] = useState<any>([])
+    const getTop5Performing = async () => {
+        readTop5Performing(
+            setTop5Performing,
+        )
+    };
+
+    //Total Collection 
+    const [totalCollection, setTotalCollection] = useState<any>([])
+    const [totalCollectionActive, setTotalCollectionActive] = useState<any>([])
+    const [totalCollectionInActive, setTotalCollectionInActive] = useState<any>([])
+
+    const getTotalCollection = async () => {
+        readTotalCollection(
+            setTotalCollection,
+            setTotalCollectionActive,
+            setTotalCollectionInActive,
+        )
+    };
+
+    useEffect(() => {
+        getTop5Performing();
+        getTotalCollection();
+    }, [])
+
     return (
         <Container 
             title="Billing"
@@ -83,11 +127,11 @@ export default function BillingPage() {
                                     <div className="flex items-center text-xs font-semibold">
                                         <p>Top 5 Performing Collections</p>
                                     </div>
-                                    {collectionTop5Data.map((item, index) => (
+                                    {top5Performing.map((item:any, index:any) => (
                                         <BarList
                                             key={index}
                                             title={item.title}
-                                            total={`RM ${item.total}`}
+                                            total={moneyFormat(item.total)}
                                             percentageValue={item.percentageValue}
                                         />
                                     ))}
@@ -141,6 +185,7 @@ export default function BillingPage() {
                                                 style={{padding:4 }}
                                                 icon={MagnifyingGlassIcon} 
                                                 placeholder="Search..." 
+                                                onChange={(e) => setSearch(e.target.value)}
                                             />
                                         </div>
                                         <button onClick={()=> setOpenFilterModal(true)} className="bg-white px-4 py-1 border rounded-md flex items-center justify-center space-x-1 hover:bg-gray-50">
@@ -162,7 +207,9 @@ export default function BillingPage() {
                                             <div>
                                                 <label className="text-xs">Collection Name</label>
                                                 <TextInput 
+                                                    value={search}
                                                     placeholder="Type to Search" 
+                                                    onChange={(e) => setSearch(e.target.value)}
                                                 />
                                             </div>
                                             <div>
@@ -170,6 +217,10 @@ export default function BillingPage() {
                                                 <DateRangePicker 
                                                     className="max-w-sm mx-auto" 
                                                     enableSelect={false} 
+                                                    value={filterDate}
+                                                    onValueChange={(newFilterDate) => {
+                                                        setFilterDate(newFilterDate);
+                                                    }}
                                                 />
                                             </div>
                                             <div>
@@ -187,10 +238,19 @@ export default function BillingPage() {
                                             </div>
                                         </div>
                                         <div className="flex items-center justify-center lg:justify-end mt-12 lg:mt-4 space-x-2 bg-gray-50 p-4 rounded-md">
-                                            <button className="text-xs bg-primary-500 px-4 py-2 text-white rounded-md hover:bg-primary-600">
+                                            <button 
+                                                onClick ={()=>{
+                                                    updateFilter(search,filterDate); 
+                                                    setOpenFilterModal(false)
+                                                }}
+                                            className="text-xs bg-primary-500 px-4 py-2 text-white rounded-md hover:bg-primary-600">
                                                 Apply Filter
                                             </button>
-                                            <button className="text-xs bg-white px-4 py-2 border rounded-md flex items-center justify-center space-x-1  hover:bg-gray-50">
+                                            <button
+                                                onClick ={()=>{
+                                                    resetFilter()
+                                                }} 
+                                                className="text-xs bg-white px-4 py-2 border rounded-md flex items-center justify-center space-x-1  hover:bg-gray-50">
                                                 Reset
                                             </button>
                                         </div>
@@ -200,15 +260,30 @@ export default function BillingPage() {
                             <div>
                                 <TabPanels>
                                     <TabPanel>
-                                        <ColectionTable data={collectionData}/>
+                                        <ColectionTable 
+                                            data={totalCollection} 
+                                            search={search}
+                                            startDate={startDate} 
+                                            endDate={endDate}
+                                        />
                                     </TabPanel>
 
                                     <TabPanel>
-                                        <ColectionTable data={collectionData}/>
+                                        <ColectionTable 
+                                            data={totalCollectionActive} 
+                                            search={search}
+                                            startDate={startDate} 
+                                            endDate={endDate}
+                                        />
                                     </TabPanel>
 
                                     <TabPanel>
-                                        <ColectionTable data={collectionData}/>
+                                        <ColectionTable 
+                                            data={totalCollectionInActive} 
+                                            search={search}
+                                            startDate={startDate} 
+                                            endDate={endDate}
+                                        />
                                     </TabPanel>
                                 </TabPanels>    
                             </div>

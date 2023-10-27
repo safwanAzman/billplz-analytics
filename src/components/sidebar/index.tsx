@@ -22,7 +22,7 @@ export default function Sidebar({showMobileSidebar ,closeMobileSidebar }:Sidebar
                 <div  className={`fixed inset-0 z-10 bg-black/50 block md:hidden `}></div>
                 <div className="">
                     <div  className={`fixed top-0 left-0 flex flex-col flex-shrink-0 h-full duration-75 lg:flex transition-width w-full lg:w-64 z-20 cursor-pointer`}>
-                        <div className="relative flex flex-col flex-1 min-h-0 pt-0 bg-white lg:bg-blue-50">
+                        <div className="relative flex flex-col flex-1 min-h-0 pt-0 bg-white lg:bg-blue-50 ">
                             <div className="flex items-center justify-between lg:justify-normal mt-4 lg:mt-20 px-4 border-b pb-4 lg:border-none">
                                 <div className="flex items-center space-x-2 ">
                                     <div className="bg-black p-1 text-white rounded-full">

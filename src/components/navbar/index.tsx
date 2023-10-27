@@ -9,7 +9,7 @@ export default function Navbar({hamburgerClick}:NavbarProps) {
             <div className="px-3 lg:pl-0">
                 <div className="flex items-center space-x-4">
                     <div className="block lg:hidden">
-                        <button onClick={hamburgerClick} className="rounded cursor-pointer py-2">
+                        <button onClick={hamburgerClick} className="rounded py-2">
                             <Bars4Icon className="w-8 h-8 text-black"/>
                         </button>
                     </div>
