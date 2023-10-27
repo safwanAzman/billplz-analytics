@@ -14,7 +14,7 @@ export default function BarList({ title, percentageValue, total }: BarListProps)
             <div className="flex items-center justify between space-x-2">
                 <div className="w-full bg-gray-200 ">
                     <div
-                        className="bg-blue-500 text-xs font-medium text-blue-100 text-left p-1 leading-none border-r-[6px] border-cyan-300"
+                        className="bg-blue-500 text-xs font-medium text-white text-left p-1 leading-none border-r-[6px] border-cyan-300"
                         style={{ width: `${percentage}%` }}
                     >
                         {total}

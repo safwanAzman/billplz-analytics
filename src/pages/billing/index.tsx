@@ -84,7 +84,7 @@ export default function BillingPage() {
                         selected={selected}
                         setSelected={setSelected}
                     />
-                    <h1 className="text-xs text-gray-400 capitalize">
+                    <h1 className="text-xs text-gray-600 capitalize">
                         Compared to previous {selected.label}
                     </h1>
                 </div>
@@ -95,7 +95,7 @@ export default function BillingPage() {
                     <div className="col-span-12 md:col-span-7 lg:col-span-12 xl:col-span-8 2xl:col-span-8">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             {/* total paid card */}
-                            <div className="bg-white border p-2 rounded-md shadow-md">
+                            <div className="bg-white p-2 rounded-md shadow-md">
                                 <div className="px-4 py-4 space-y-2">
                                     <div className="flex items-center justify-between  text-xs font-semibold">
                                         <p>Total Paid</p>
@@ -122,7 +122,7 @@ export default function BillingPage() {
                             </div>
 
                              {/* top 5 Peforming Collections card */}
-                            <div className="bg-white border p-2 rounded-md shadow-md">
+                            <div className="bg-white p-2 rounded-md shadow-md">
                                 <div className="px-4 py-4 space-y-2">
                                     <div className="flex items-center text-xs font-semibold">
                                         <p>Top 5 Performing Collections</p>
@@ -142,15 +142,15 @@ export default function BillingPage() {
 
                     <div className="col-span-12  md:col-span-5 lg:col-span-12 xl:col-span-4 2xl:col-span-4">
                         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-1 2xl:grid-cols-1 gap-4">
-                            <div className="bg-white border p-4 rounded-md shadow-md">
+                            <div className="bg-white p-4 rounded-md shadow-md">
                                 <div className="space-y-2">
-                                    <p className="text-xs text-gray-400">Total Paid</p>
+                                    <p className="text-xs text-gray-500">Total Paid</p>
                                     <h1 className="text-lg font-semibold text-green-500">RM 10,000.00</h1>
                                 </div>
                             </div>
-                            <div className="bg-white border p-4 rounded-md shadow-md">
+                            <div className="bg-white p-4 rounded-md shadow-md">
                                 <div className="space-y-2">
-                                    <p className="text-xs text-gray-400">Total Collections</p>
+                                    <p className="text-xs text-gray-500">Total Collections</p>
                                     <h1 className="text-lg font-semibold">10</h1>
                                 </div>
                             </div>

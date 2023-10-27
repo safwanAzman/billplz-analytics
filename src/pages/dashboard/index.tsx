@@ -120,7 +120,7 @@ export default function Dashboard() {
                     selected={selected}
                     setSelected={setSelected}
                 />
-                <h1 className="text-xs text-gray-400 capitalize">
+                <h1 className="text-xs text-gray-600 capitalize">
                     Compared to previous {selected.label}
                 </h1>
             </div>
@@ -129,11 +129,11 @@ export default function Dashboard() {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 mt-4 gap-4'>
                 
                 {/* total collections card */}
-                <div className="bg-white border p-2 rounded-md shadow-md">
+                <div className="bg-white  p-2 rounded-md shadow-md">
                     <div className="px-4 py-4 space-y-2">
                         <div className="flex items-center justify-between  text-xs font-semibold">
                             <p>Total Collections</p>
-                            <Link href="" className="text-primary-500 hover:text-primary-600">
+                            <Link href="" className="text-primary-600 hover:text-primary-500">
                                 View all
                             </Link>
                         </div>
@@ -164,11 +164,11 @@ export default function Dashboard() {
                 </div>
 
                 {/* total transactions card */}
-                <div className="bg-white border p-2 rounded-md shadow-md">
+                <div className="bg-white p-2 rounded-md shadow-md">
                     <div className="px-4 py-4 space-y-2">
                         <div className="flex items-center justify-between  text-xs font-semibold">
                             <p>Total Transactions</p>
-                            <Link href="" className="text-primary-500 hover:text-primary-600">
+                            <Link href="" className="text-primary-600 hover:text-primary-500">
                                 View all
                             </Link>
                         </div>
@@ -199,14 +199,14 @@ export default function Dashboard() {
                 </div>
 
                 {/* upcoming FPX Payout card */}
-                <div className="bg-white border p-2 rounded-md shadow-md">
+                <div className="bg-white p-2 rounded-md shadow-md">
                     <div className="px-4 py-4 space-y-2">
                         <div className="flex items-center justify-between  text-xs font-semibold">
                             <div className="flex items-center space-x-1">
                                 <p>Upcoming FPX Payout</p>
                                 <QuestionMarkCircleIcon className="w-4 h-4 text-primary-500"/>
                             </div>
-                            <Link href="" className="text-primary-500 hover:text-primary-600">
+                            <Link href="" className="text-primary-600 hover:text-primary-500">
                                 See details
                             </Link>
                         </div>
@@ -214,11 +214,11 @@ export default function Dashboard() {
                             <h1 className="text-lg font-semibold">
                                 {moneyFormat(totalUpcomingFpx)}
                             </h1>
-                            <h1 className="text-xs text-gray-400">Expected to reach your bank account 12 Sept 2021</h1>
+                            <h1 className="text-xs text-gray-500">Expected to reach your bank account 12 Sept 2021</h1>
                         </div>
 
                         <div className="space-y-4 pt-6">
-                            <h1 className="text-gray-400 font-semibold text-xs">COLLECTION DATE</h1>
+                            <h1 className="text-gray-500 font-semibold text-xs">COLLECTION DATE</h1>
                             {upcomingFpx.map((item:any, index:any) => (
                                 <div key={item.id} className="flex items-center justify-between">
                                     <h1 className=" text-sm">
@@ -234,11 +234,11 @@ export default function Dashboard() {
                 </div>
 
                 {/* total Payouts card */}
-                <div className="bg-white border p-2 rounded-md shadow-md">
+                <div className="bg-white p-2 rounded-md shadow-md">
                     <div className="px-4 py-4 space-y-2">
                         <div className="flex items-center justify-between  text-xs font-semibold">
                             <p>Total Payout</p>
-                            <Link href="" className="text-primary-500 hover:text-primary-600">
+                            <Link href="" className="text-primary-600 hover:text-primary-500">
                                 View all
                             </Link>
                         </div>
@@ -269,7 +269,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* top 5 Peforming Collections card */}
-                <div className="bg-white border p-2 rounded-md shadow-md">
+                <div className="bg-white p-2 rounded-md shadow-md">
                     <div className="px-4 py-4 space-y-2">
                         <div className="flex items-center text-xs font-semibold">
                             <p>Top 5 Performing Collections</p>
@@ -286,7 +286,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* active vs. inactive Collections */}
-                <div className="bg-white border p-2 rounded-md shadow-md">
+                <div className="bg-white p-2 rounded-md shadow-md">
                     <div className="px-4 py-4 space-y-2">
                         <div className="text-xs font-semibold">
                             <p>Active Vs. Inactive Collections</p>
@@ -302,7 +302,7 @@ export default function Dashboard() {
                 </div>
 
                 {/* Collections by Payment Methods */}
-                <div className="bg-white border p-2 rounded-md shadow-md">
+                <div className="bg-white p-2 rounded-md shadow-md">
                     <div className="px-4 py-4 space-y-2">
                         <div className="text-xs font-semibold">
                             <p>Collections by Payment Methods</p>
