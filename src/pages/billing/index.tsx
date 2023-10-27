@@ -2,12 +2,13 @@ import React,{useState,useEffect} from 'react'
 import Container from '@/components/container';
 import FilterDate from '@/components/menu/filter-date';
 import BarList from '@/components/chart/bar-list';
+import ChartCard from '@/components/card/chart-card';
+import GeneralCard from '@/components/card/general-card';
 import ColectionTable from '@/components/table/collections-table';
 import GeneralModal from '@/components/modal/general-modal';
 import {optionFilterDate} from '@/shared/option/option-date-data';
-import {chartdata} from '@/shared/data/line-chart-data';
-import { ArrowUpIcon,MagnifyingGlassIcon,FunnelIcon} from '@heroicons/react/24/outline'
-import {moneyFormat} from '@/utils/formartter'
+import {MagnifyingGlassIcon,FunnelIcon} from '@heroicons/react/24/outline'
+import {moneyFormat,calculateTotalForYear,calculatePercentageChange} from '@/utils/formartter'
 import { 
     LineChart, 
     Tab,
@@ -38,6 +39,11 @@ export default function BillingPage() {
     const [totalCollectionInActive, setTotalCollectionInActive] = useState<CollectionItem[]>([])
 
     const [top5Performing, setTop5Performing] = useState<CollectionItem[]>([])
+
+    const [totalPaid, setTotalPaid] = useState<CollectionItem[]>([]);
+    const [totalPaid2022, setTotalPaid2022] = useState<number>(0);
+    const [totalPaid2023, setTotalPaid2023] = useState<number>(0);
+    const [percentagePaid, setPercentagePaid] = useState<number>(0);
     
     const updateFilter = (newSearch:string , newFilterDate: DateRangePickerValue) => {
         setSearch(newSearch)
@@ -55,20 +61,31 @@ export default function BillingPage() {
         const [
             totalCollectionData,
             top5PerformingData,
+            totalPaidData,
         ] = await Promise.all([
             BillingService.readTotalCollection(),
             BillingService.readTop5Performing(),
+            BillingService.readTotalPaid(),
         ]);
 
-        //colections
-        const activeData = totalCollectionData.filter((item:any) => item.status === 'active');
-        const inactiveData = totalCollectionData.filter((item:any) => item.status === 'inactive');
+        //Total colections
+        const activeData = totalCollectionData.filter((item:CollectionItem) => item.status === 'active');
+        const inactiveData = totalCollectionData.filter((item:CollectionItem) => item.status === 'inactive');
         setTotalCollection(totalCollectionData);
         setTotalCollectionActive(activeData);
         setTotalCollectionInActive(inactiveData);
 
         //Top 5 Performing
         setTop5Performing(top5PerformingData);
+
+        //Total Paid
+        setTotalPaid(totalPaidData);
+        const totalPaid2022 = calculateTotalForYear(totalPaidData, "2022");
+        const totalPaid2023 = calculateTotalForYear(totalPaidData, "2023");
+        const percentageChangePaid = calculatePercentageChange(totalPaid2023, totalPaid2022);
+        setTotalPaid2022(totalPaid2022);
+        setTotalPaid2023(totalPaid2023);
+        setPercentagePaid(percentageChangePaid);
 
         } catch (error) {
             console.error(error);
@@ -101,38 +118,35 @@ export default function BillingPage() {
                     <div className="col-span-12 md:col-span-7 lg:col-span-12 xl:col-span-8 2xl:col-span-8">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             {/* total paid card */}
-                            <div className="bg-white p-2 rounded-md shadow-md">
-                                <div className="px-4 py-4 space-y-2">
-                                    <div className="flex items-center justify-between  text-xs font-semibold">
-                                        <p>Total Paid</p>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <h1 className="text-lg font-semibold">RM 900.00</h1>
-                                        <div className="font-normal text-green-500 flex items-center space-x-1">
-                                        <ArrowUpIcon className="w-4 h-4"/>
-                                        <p>10.6%</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <LineChart
-                                    className="h-52 text-[0.55rem] z-0"
-                                    data={chartdata}
-                                    index="date"
-                                    categories={["2022", "2023"]}
-                                    colors={["gray", "blue"]}
-                                    yAxisWidth={40}
-                                    connectNulls={true}
-                                    showAnimation={true}
-                                    showLegend={false}
-                                />
-                            </div>
+                            <ChartCard
+                                title="Total Paid"
+                                total={moneyFormat(totalPaid2022 + totalPaid2023)}
+                                percentage={Math.abs(percentagePaid).toFixed(2)}
+                                viewAllRoute=""
+                                viewAllTitle="View all"
+                                displayChart={
+                                    <LineChart
+                                        className="h-52 text-[0.55rem]"
+                                        data={totalPaid}
+                                        index="date"
+                                        categories={
+                                            totalPaid.length > 0 ? 
+                                            Object.keys(totalPaid[0]).filter(key => key !== "date") : []
+                                        }
+                                        colors={["gray", "blue"]}
+                                        yAxisWidth={40}
+                                        connectNulls={true}
+                                        showAnimation={true}
+                                        showLegend={false}
+                                    />
+                                }
+                            />
 
-                             {/* top 5 Peforming Collections card */}
-                            <div className="bg-white p-2 rounded-md shadow-md">
-                                <div className="px-4 py-4 space-y-2">
-                                    <div className="flex items-center text-xs font-semibold">
-                                        <p>Top 5 Performing Collections</p>
-                                    </div>
+                            {/* top 5 Peforming Collections card */}
+                            <GeneralCard
+                                title="Top 5 Performing Collections"
+                                content={
+                                    <>
                                     {top5Performing.map((item:any, index:any) => (
                                         <BarList
                                             key={index}
@@ -141,8 +155,9 @@ export default function BillingPage() {
                                             percentageValue={item.percentageValue}
                                         />
                                     ))}
-                                </div>
-                            </div>
+                                    </>
+                                }
+                            />
                         </div>
                     </div>
 
@@ -151,13 +166,17 @@ export default function BillingPage() {
                             <div className="bg-white p-4 rounded-md shadow-md">
                                 <div className="space-y-2">
                                     <p className="text-xs text-gray-500">Total Paid</p>
-                                    <h1 className="text-lg font-semibold text-green-500">RM 10,000.00</h1>
+                                    <h1 className="text-lg font-semibold text-green-500">
+                                        {moneyFormat(totalPaid2022 + totalPaid2023)}
+                                    </h1>
                                 </div>
                             </div>
                             <div className="bg-white border p-4 rounded-md shadow-md">
                                 <div className="space-y-2">
                                     <p className="text-xs text-gray-500">Total Collections</p>
-                                    <h1 className="text-lg font-semibold">10</h1>
+                                    <h1 className="text-lg font-semibold">
+                                        {totalCollection.length}
+                                    </h1>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +268,7 @@ export default function BillingPage() {
                                                     updateFilter(search,filterDate); 
                                                     setOpenFilterModal(false)
                                                 }}
-                                            className="text-xs bg-primary-500 px-4 py-2 text-white rounded-md hover:bg-primary-600">
+                                                className="text-xs bg-primary-500 px-4 py-2 text-white rounded-md hover:bg-primary-600">
                                                 Apply Filter
                                             </button>
                                             <button

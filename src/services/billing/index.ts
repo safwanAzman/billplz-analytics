@@ -20,4 +20,7 @@ export const BillingService = {
     readTotalCollection: async (): Promise<CollectionItem[]> => {
         return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/collection-billing`);
     },
+    readTotalPaid: async (): Promise<CollectionItem[]> => {
+        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/total-paid`);
+    },
 };
