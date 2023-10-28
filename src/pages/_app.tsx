@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Loading from '@/components/loading';
+import { MobileSidebarProvider } from '@/context/MobileSidebarContext';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
 
   useEffect(() => {
     const handleStart = (url: string) => {
@@ -38,21 +38,21 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
   <div>
-    <Head>
-      <title>Billplz Analytics</title>
-      <meta
-          name="description"
-          content="Billplz - Billplz Analytics"
+      <Head>
+        <title>Billplz Analytics</title>
+        <meta
+            name="description"
+            content="Billplz - Billplz Analytics"
+          />
+        <meta 
+          name="viewport" 
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0 user-scalable=no"
         />
-      <meta 
-        name="viewport" 
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0 user-scalable=no"
-      />
-    </Head>
-      {isLoading ? 
-      <Loading/>: 
-      <Component {...pageProps} />
-      }
+      </Head>
+      <MobileSidebarProvider>
+        {isLoading ? <Loading/>: <Component {...pageProps} />}
+      </MobileSidebarProvider>
   </div>
+  
   )
 }

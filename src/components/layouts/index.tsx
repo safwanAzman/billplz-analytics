@@ -1,6 +1,7 @@
 import React,{useState,ReactNode} from 'react'
 import Sidebar from '@/components/sidebar';
 import Navbar from '@/components/navbar';
+import { useMobileSidebar } from '@/context/MobileSidebarContext';
 
 
 interface LayoutsProps {
@@ -8,21 +9,17 @@ interface LayoutsProps {
 }
 
 export default function Layouts({children}:LayoutsProps) {
-    const [showMobileSidebar, setShowMobileSidebar] = useState(false)
-
-    const toggleMobileSidebar = () => {
-        setShowMobileSidebar(prevState => !prevState);
-    };
+    const { showSidebar, setShowSidebar} = useMobileSidebar();
 
     return (
-        <div className="relative">
+        <div className="relative overflow-auto h-screen bg-primary-50">
             <Navbar 
-                hamburgerClick={toggleMobileSidebar} 
+                hamburgerClick={()=> setShowSidebar(!showSidebar)} 
             />
             <div className="flex w-full">
                 <Sidebar 
-                    showMobileSidebar={showMobileSidebar} 
-                    closeMobileSidebar={toggleMobileSidebar}
+                    showMobileSidebar={showSidebar} 
+                    closeMobileSidebar={()=> setShowSidebar(false)}
                 />
                 <div className="relative w-full lg:ml-64">
                     <main className="w-full">
