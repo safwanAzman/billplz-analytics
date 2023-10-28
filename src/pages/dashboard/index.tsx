@@ -10,33 +10,32 @@ import {optionsActiveInactive,optionsPayment} from '@/shared/option/option-piech
 import { LineChart } from "@tremor/react";
 import { Chart } from "react-google-charts";
 import {QuestionMarkCircleIcon} from '@heroicons/react/24/outline'
-import {moneyFormat,dateFormat,calculateTotalForYear,calculatePercentageChange} from '@/utils/formartter'
-import { DashboardService ,CollectionItem} from '@/services/dashboad';
+import {
+    moneyFormat,
+    dateFormat,
+    calculateTotal,
+    calculateOverallPercentage,
+    calulateTotalGeneral
+} from '@/utils/formartter'
+import { 
+    DashboardService,
+    CollectionLineChart,
+    CollectionPieChart,
+    CollectionFpxUpcoming,
+    CollectionTop5
+} 
+from '@/services/dashboad';
 
 export default function Dashboard() {
     const [selected, setSelected] = useState(optionFilterDate[2])
 
-    const [totalCollection, setTotalCollection] = useState<CollectionItem[]>([]);
-    const [totalCollection2022, setTotalCollection2022] = useState<number>(0);
-    const [totalCollection2023, setTotalCollection2023] = useState<number>(0);
-    const [percentageCollection, setPercentageCollection] = useState<number>(0);
-
-    const [totalTransaction, setTotalTransaction] = useState<CollectionItem[]>([]);
-    const [totalTransaction2022, setTransaction2022] = useState<number>(0);
-    const [totalTransaction2023, setTransaction2023] = useState<number>(0);
-    const [percentageTransaction, setPercentageTransaction] = useState<number>(0);
-
-    const [upcomingFpx, setUpcomingFpx] = useState<CollectionItem[]>([]);
-    const [totalUpcomingFpx, setTotalUpcomingFpx] = useState<number>(0);
-
-    const [totalPayout, setTotalPayout] = useState<CollectionItem[]>([]);
-    const [totalPayout2022, setPayout2022] = useState<number>(0);
-    const [totalPayout2023, setPayout2023] = useState<number>(0);
-    const [percentagePayout, setPercentagePayout] = useState<number>(0);
-
-    const [top5Performing, setTop5Performing] = useState<CollectionItem[]>([]);
-    const [activeInactive, setActiveInactive] = useState<CollectionItem[]>([]);
-    const [paymentMethod, setPaymentMethod] = useState<CollectionItem[]>([]);
+    const [totalCollection, setTotalCollection] = useState<CollectionLineChart[]>([]);
+    const [totalTransaction, setTotalTransaction] = useState<CollectionLineChart[]>([]);
+    const [upcomingFpx, setUpcomingFpx] = useState<CollectionFpxUpcoming[]>([]);
+    const [totalPayout, setTotalPayout] = useState<CollectionLineChart[]>([]);
+    const [top5Performing, setTop5Performing] = useState<CollectionTop5[]>([]);
+    const [activeInactive, setActiveInactive] = useState<CollectionPieChart[]>([]);
+    const [paymentMethod, setPaymentMethod] = useState<CollectionPieChart[]>([]);
 
 
     const getData = async () => {
@@ -57,54 +56,20 @@ export default function Dashboard() {
                 DashboardService.readTop5Performing(),
                 DashboardService.readActiveInactive(),
                 DashboardService.readPaymentMethod(),
-            ]);
-
-            //Total Collections
+            ])
+            
             setTotalCollection(totalCollectionData);
-            const totalCollection2022 = calculateTotalForYear(totalCollectionData, "2022");
-            const totalCollection2023 = calculateTotalForYear(totalCollectionData, "2023");
-            const percentageChangeCollection = calculatePercentageChange(totalCollection2023, totalCollection2022);
-            setTotalCollection2022(totalCollection2022);
-            setTotalCollection2023(totalCollection2023);
-            setPercentageCollection(percentageChangeCollection);
-
-            //Total Transaction
             setTotalTransaction(totalTransactionData);
-            const totalTransaction2022 = calculateTotalForYear(totalTransactionData, "2022");
-            const totalTransaction2023 = calculateTotalForYear(totalTransactionData, "2023");
-            const percentageChangeTransaction = calculatePercentageChange(totalTransaction2023, totalTransaction2022);
-            setTransaction2022(totalTransaction2022);
-            setTransaction2023(totalTransaction2023);
-            setPercentageTransaction(percentageChangeTransaction);
-
-            //Upcoming FPX
             setUpcomingFpx(upcomingFpxData);
-            const totalOverallFpxPayout: number = upcomingFpxData.reduce((sum:number, item) => sum + item.total, 0);
-            setTotalUpcomingFpx(totalOverallFpxPayout);
-
-            //Total Payout
             setTotalPayout(totalPayoutData);
-            const totalPayout2022 = calculateTotalForYear(totalPayoutData, "2022");
-            const totalPayout2023 = calculateTotalForYear(totalPayoutData, "2023");
-            const percentageChangePayout = calculatePercentageChange(totalPayout2023, totalPayout2022);
-            setPayout2022(totalPayout2022);
-            setPayout2023(totalPayout2023);
-            setPercentagePayout(percentageChangePayout);
-
-            //Top 5 Performing
             setTop5Performing(top5PerformingData);
-
-            //Active/Inactive
             setActiveInactive(activeInactiveData);
-
-            //Payment Method
             setPaymentMethod(paymentMethodData);
-
             } catch (error) {
-                console.error(error);
+                alert(error)
             }
     };
-
+    
     useEffect(() => {
         getData();
     }, []);
@@ -130,8 +95,8 @@ export default function Dashboard() {
                 {/* total collections card */}
                 <ChartCard
                     title="Total Collections"
-                    total={moneyFormat(totalCollection2022 + totalCollection2023)}
-                    percentage={Math.abs(percentageCollection).toFixed(2)}
+                    total={moneyFormat(calculateTotal(totalCollection))}
+                    percentage={calculateOverallPercentage(totalCollection)}
                     viewAllRoute=""
                     viewAllTitle="View all"
                     displayChart={
@@ -155,8 +120,8 @@ export default function Dashboard() {
                 {/* total transactions card */}
                 <ChartCard
                     title="Total Transactions"
-                    total={moneyFormat(totalTransaction2022 + totalTransaction2023)}
-                    percentage={Math.abs(percentageTransaction).toFixed(2)}
+                    total={moneyFormat(calculateTotal(totalTransaction))}
+                    percentage={calculateOverallPercentage(totalTransaction)}
                     viewAllRoute=""
                     type="dropPercentage"
                     viewAllTitle="View all"
@@ -192,7 +157,7 @@ export default function Dashboard() {
                         </div>
                         <div className="space-y-2 border-b pb-4 border-dashed">
                             <h1 className="text-lg font-semibold">
-                                {moneyFormat(totalUpcomingFpx)}
+                                {moneyFormat(calulateTotalGeneral(upcomingFpx))}
                             </h1>
                             <h1 className="text-xs text-gray-500">
                                 Expected to reach your bank account 12 Sept 2021
@@ -217,8 +182,8 @@ export default function Dashboard() {
                 {/* total Payouts card */}
                 <ChartCard
                     title="Total Payout"
-                    total={moneyFormat(totalPayout2022 + totalPayout2023)}
-                    percentage={Math.abs(percentagePayout).toFixed(2)}
+                    total={moneyFormat(calculateTotal(totalPayout))}
+                    percentage={calculateOverallPercentage(totalPayout)}
                     viewAllRoute=""
                     viewAllTitle="View all"
                     displayChart={
@@ -255,6 +220,7 @@ export default function Dashboard() {
                     </>
                     }
                 />
+
                 {/* active vs. inactive Collections */}
                 <GeneralCard
                     title="Active Vs. Inactive Collections"
@@ -305,7 +271,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
-                    }
+                }
                 />
             </div>
         </Container>

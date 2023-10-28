@@ -1,13 +1,28 @@
-import React , { useState } from 'react'
+import React , { useState,useEffect } from 'react'
 import Container from '@/components/container';
 import GeneralModal from '@/components/modal/general-modal';
+import { SubscribeService , CollectionItem} from '@/services/subscription';
 
 export default function Subscription() {
     const [openSubModal, setOpenSubModal] = useState<boolean>(false)
+    const [subscription, setSubscription] = useState<CollectionItem[]>([])
     const [typePlan, setTypePlan] = useState({
         type: "",
         price: "",
     })
+
+    const getData = async () => {
+        try {
+            const subscriptionData = await SubscribeService.readSubscribe();
+            setSubscription(subscriptionData);
+        } catch (error) {
+            alert(error)
+        }
+    };
+    useEffect(() => {
+        getData();
+    }, []);
+
     return(
         <Container title="Subscription">
             <div className="grid grid-cols-1">
@@ -17,18 +32,20 @@ export default function Subscription() {
                     {/* basic plan */}
                     <div className="bg-white h-[35rem] rounded-lg shadow-lg py-4 flex flex-col relative">
                         <div className="space-y-5 text-center py-10 border-b">
-                            <h1 className="font-semibold">BASIC</h1>
+                            <h1 className="font-semibold uppercase">{subscription[0]?.title}</h1>
                             <div className="text-primary-500 space-y-1">
-                                <h1 className="text-4xl font-bold">RM 100</h1>
+                                <h1 className="text-4xl font-bold">RM {subscription[0]?.price}</h1>
                                 <p className="text-sm">per month</p>
                             </div>
                         </div>
                         <div className="space-y-5 py-10 px-8">
                             <div className="space-y-4 text-sm text-gray-500">
                                 <h1 className="text-gray-400 font-medium">ACCESS TO</h1>
-                                <p>Latest 100 customer data</p>
-                                <p>Process</p>
-                                <p>Feature 3</p>
+                                {subscription[0]?.item.map((item, index) => (
+                                    <div key={index}>
+                                        <p>{item}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
@@ -45,26 +62,27 @@ export default function Subscription() {
                             POPULAR
                         </h1>
                         <div className="space-y-5 text-center pt-7 pb-10 border-b">
-                            <h1 className="font-semibold">STANDARD</h1>
+                            <h1 className="font-semibold uppercase">{subscription[1]?.title}</h1>
                             <div className="text-primary-500 space-y-1">
-                                <h1 className="text-4xl font-bold">RM 500</h1>
+                                <h1 className="text-4xl font-bold">RM {subscription[1]?.price}</h1>
                                 <p className="text-sm">per month</p>
                             </div>
                         </div>
                         <div className="space-y-5 py-10 px-8">
                             <div className="space-y-4 text-sm text-gray-500">
                                 <h1 className="text-gray-400 font-medium">ACCESS TO</h1>
-                                <p>Latest 100 customer data</p>
-                                <p>Process</p>
-                                <p>Feature 3</p>
-                                <p>Feature Hidden 4</p>
+                                {subscription[1]?.item.map((item, index) => (
+                                    <div key={index}>
+                                        <p>{item}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
                         <div className="absolute bottom-0 py-4 w-full px-6">
                             <button 
                                 onClick={() => {
-                                    setTypePlan({ type: "Standard", price:'500' })
+                                    setTypePlan({ type: subscription[1]?.title, price:subscription[1]?.price })
                                     setOpenSubModal(true)
                                 }} 
                                 className="flex items-center justify-center bg-primary-500 w-full p-3 rounded-lg hover:bg-primary-600">
@@ -76,26 +94,27 @@ export default function Subscription() {
                      {/* Super plan */}
                     <div className="bg-white h-[35rem] rounded-lg shadow-lg py-4 flex flex-col relative">
                         <div className="space-y-5 text-center py-10 border-b">
-                            <h1 className="font-semibold">SUPER</h1>
+                            <h1 className="font-semibold uppercase">{subscription[2]?.title}</h1>
                             <div className="text-primary-500 space-y-1">
-                                <h1 className="text-4xl font-bold">RM 1,000</h1>
+                                <h1 className="text-4xl font-bold">RM {subscription[2]?.price}</h1>
                                 <p className="text-sm">per month</p>
                             </div>
                         </div>
                         <div className="space-y-5 py-10 px-8">
                             <div className="space-y-4 text-sm text-gray-500">
                                 <h1 className="text-gray-400 font-medium">ACCESS TO</h1>
-                                <p>Latest 100 customer data</p>
-                                <p>Process</p>
-                                <p>Feature Hidden 4</p>
-                                <p>Feature Hidden 5</p>
+                                {subscription[2]?.item.map((item, index) => (
+                                    <div key={index}>
+                                        <p>{item}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
                         <div className="absolute bottom-0 py-4 w-full px-6">
                             <button 
                                 onClick={() =>{ 
-                                    setTypePlan({ type: "Super", price:'1000' })
+                                    setTypePlan({ type: subscription[2]?.title, price:subscription[2]?.price })
                                     setOpenSubModal(true)
                                 }}
                                 className="flex items-center justify-center bg-primary-500 w-full p-3 rounded-lg hover:bg-primary-600">
@@ -118,7 +137,7 @@ export default function Subscription() {
                         </button>
                     </div>
                     <div className="w-1/2">
-                        <button className="border w-full rounded-lg p-2 hover:bg-gray-50 text-sm shadow-sm font-semibold">
+                        <button onClick={() => setOpenSubModal(false)}  className="border w-full rounded-lg p-2 hover:bg-gray-50 text-sm shadow-sm font-semibold">
                             OK
                         </button>
                     </div>

@@ -1,5 +1,4 @@
 export const data = [
-    [
         {
             "title": "Basic",
             "price": "100",
@@ -30,5 +29,4 @@ export const data = [
                 "Feature Hidden 5"
             ]
         }
-    ]
 ]

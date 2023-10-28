@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import {data} from '@/data/subscription'
 
 type Data = {
-
 }
 
 export default function handler(

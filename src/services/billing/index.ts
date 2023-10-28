@@ -12,15 +12,24 @@ export interface CollectionItem {
     volume: number,
     created_at: string,
 }
+export interface CollectionLineChart {
+    [key: string]: number;
+}
+export interface CollectionTop5 {
+    id:number,
+    date:string,
+    total:number
+}
+
 
 export const BillingService = {
-    readTop5Performing: async (): Promise<CollectionItem[]> => {
+    readTop5Performing: async (): Promise<CollectionTop5[]> => {
         return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/collection-top5`);
     },
     readTotalCollection: async (): Promise<CollectionItem[]> => {
         return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/collection-billing`);
     },
-    readTotalPaid: async (): Promise<CollectionItem[]> => {
+    readTotalPaid: async (): Promise<CollectionLineChart[]> => {
         return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/total-paid`);
     },
 };

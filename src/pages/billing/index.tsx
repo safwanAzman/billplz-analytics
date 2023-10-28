@@ -8,7 +8,11 @@ import ColectionTable from '@/components/table/collections-table';
 import GeneralModal from '@/components/modal/general-modal';
 import {optionFilterDate} from '@/shared/option/option-date-data';
 import {MagnifyingGlassIcon,FunnelIcon} from '@heroicons/react/24/outline'
-import {moneyFormat,calculateTotalForYear,calculatePercentageChange} from '@/utils/formartter'
+import {
+    moneyFormat, 
+    calculateTotal,
+    calculateOverallPercentage,
+} from '@/utils/formartter'
 import { 
     LineChart, 
     Tab,
@@ -22,7 +26,11 @@ import {
 } 
 from "@tremor/react";
 
-import { BillingService , CollectionItem} from '@/services/billing';
+import { BillingService , 
+    CollectionItem , 
+    CollectionTop5,
+    CollectionLineChart
+} from '@/services/billing';
 
 export default function BillingPage() {
 
@@ -38,12 +46,9 @@ export default function BillingPage() {
     const [totalCollectionActive, setTotalCollectionActive] = useState<CollectionItem[]>([])
     const [totalCollectionInActive, setTotalCollectionInActive] = useState<CollectionItem[]>([])
 
-    const [top5Performing, setTop5Performing] = useState<CollectionItem[]>([])
+    const [top5Performing, setTop5Performing] = useState<CollectionTop5[]>([])
 
-    const [totalPaid, setTotalPaid] = useState<CollectionItem[]>([]);
-    const [totalPaid2022, setTotalPaid2022] = useState<number>(0);
-    const [totalPaid2023, setTotalPaid2023] = useState<number>(0);
-    const [percentagePaid, setPercentagePaid] = useState<number>(0);
+    const [totalPaid, setTotalPaid] = useState<CollectionLineChart[]>([]);
     
     const updateFilter = (newSearch:string , newFilterDate: DateRangePickerValue) => {
         setSearch(newSearch)
@@ -68,27 +73,16 @@ export default function BillingPage() {
             BillingService.readTotalPaid(),
         ]);
 
-        //Total colections
         const activeData = totalCollectionData.filter((item:CollectionItem) => item.status === 'active');
         const inactiveData = totalCollectionData.filter((item:CollectionItem) => item.status === 'inactive');
         setTotalCollection(totalCollectionData);
         setTotalCollectionActive(activeData);
         setTotalCollectionInActive(inactiveData);
-
-        //Top 5 Performing
         setTop5Performing(top5PerformingData);
-
-        //Total Paid
         setTotalPaid(totalPaidData);
-        const totalPaid2022 = calculateTotalForYear(totalPaidData, "2022");
-        const totalPaid2023 = calculateTotalForYear(totalPaidData, "2023");
-        const percentageChangePaid = calculatePercentageChange(totalPaid2023, totalPaid2022);
-        setTotalPaid2022(totalPaid2022);
-        setTotalPaid2023(totalPaid2023);
-        setPercentagePaid(percentageChangePaid);
 
         } catch (error) {
-            console.error(error);
+            alert(error)
         }
     };
 
@@ -120,8 +114,8 @@ export default function BillingPage() {
                             {/* total paid card */}
                             <ChartCard
                                 title="Total Paid"
-                                total={moneyFormat(totalPaid2022 + totalPaid2023)}
-                                percentage={Math.abs(percentagePaid).toFixed(2)}
+                                total={moneyFormat(calculateTotal(totalPaid))}
+                                percentage={calculateOverallPercentage(totalPaid)}
                                 viewAllRoute=""
                                 viewAllTitle="View all"
                                 displayChart={
@@ -167,7 +161,7 @@ export default function BillingPage() {
                                 <div className="space-y-2">
                                     <p className="text-xs text-gray-500">Total Paid</p>
                                     <h1 className="text-lg font-semibold text-green-500">
-                                        {moneyFormat(totalPaid2022 + totalPaid2023)}
+                                        {moneyFormat(calculateTotal(totalPaid))}
                                     </h1>
                                 </div>
                             </div>

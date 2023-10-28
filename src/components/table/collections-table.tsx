@@ -184,68 +184,75 @@ export default function CollectionTable({data,search, startDate, endDate}:Collec
 
             {/* mobile */}
             <div className="block md:hidden">
-                {currentData.map((item , index) => (
-                    <div key={item.id} className="border-b p-4">
-                        <div className="flex items-start justify-between">
-                            <div>
-                                <div className="flex items-center space-x-2">
-                                    <p className="text-sm">{getStartNumber() + index} -</p>
-                                    <h1 className="font-semibold">{item.collection_name}</h1>
+                {currentData.length > 0 ? (
+                    currentData.map((item, index) => (
+                        <div key={item.id} className="border-b p-4">
+                            <div className="flex items-start justify-between">
+                                <div>
+                                    <div className="flex items-center space-x-2">
+                                        <p className="text-sm">{getStartNumber() + index} -</p>
+                                        <h1 className="font-semibold">{item.collection_name}</h1>
+                                    </div>
+                                    <div className="flex items-center space-x-2 pt-1 ml-7">
+                                        <p className="text-xs">{item.collection_id}</p>
+                                        <button 
+                                            onClick={() => handleCopyToClipboard(item.collection_id)}
+                                            className="ml-1 hover:scale-110">
+                                            <Square2StackIcon className=" h-4 w-4 "/>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="flex items-center space-x-2 pt-1 ml-7">
-                                    <p className="text-xs">{item.collection_id}</p>
-                                    <button 
-                                        onClick={() => handleCopyToClipboard(item.collection_id)}
-                                        className="ml-1 hover:scale-110">
-                                        <Square2StackIcon className=" h-4 w-4 "/>
-                                    </button>
+                                <MenuDropdown
+                                    dropdownBtn={
+                                        <Menu.Button className=" border p-1 rounded-md">
+                                            <EllipsisVerticalIcon className=" h-4 w-4 "/>
+                                        </Menu.Button>
+                                    }
+                                    dropdownItem={
+                                        <>
+                                            <Link href="">
+                                                <div className="px-4 py-1 hover:bg-blue-50  text-xs">
+                                                    View Collection
+                                                </div>
+                                            </Link>
+                                            <Link href="">
+                                                <div className="px-4 py-1 hover:bg-blue-50 text-xs">
+                                                    Action 2
+                                                </div>
+                                            </Link>
+                                        </>
+                                    }
+                                />
+                            </div>
+                            <div className="mt-4 ml-7">
+                                <div className="flex items-center space-x-2 text-xs">
+                                    <p>COLLECTED</p>
+                                    <div className="flex space-x-2 justify-end items-center">
+                                        <div className={`w-2 h-2 rounded-full ${item.status == 'active' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                                        <p>{moneyFormat(item.total_collected)}</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center space-x-2 text-xs pt-2">
+                                    <p>VOLUME</p>
+                                    <p>
+                                        {item.volume}
+                                    </p>
+                                </div>
+                                <div className="flex items-center space-x-2 text-xs pt-2">
+                                    <p>Date</p>
+                                    <p>
+                                        {dateFormat(item.created_at, 'dd MMM yyyy')}
+                                    </p>
                                 </div>
                             </div>
-                            <MenuDropdown
-                                dropdownBtn={
-                                    <Menu.Button className=" border p-1 rounded-md">
-                                        <EllipsisVerticalIcon className=" h-4 w-4 "/>
-                                    </Menu.Button>
-                                }
-                                dropdownItem={
-                                    <>
-                                        <Link href="">
-                                            <div className="px-4 py-1 hover:bg-blue-50  text-xs">
-                                                View Collection
-                                            </div>
-                                        </Link>
-                                        <Link href="">
-                                            <div className="px-4 py-1 hover:bg-blue-50 text-xs">
-                                                Action 2
-                                            </div>
-                                        </Link>
-                                    </>
-                                }
-                            />
                         </div>
-                        <div className="mt-4 ml-7">
-                            <div className="flex items-center space-x-2 text-xs">
-                                <p>COLLECTED</p>
-                                <div className="flex space-x-2 justify-end items-center">
-                                    <div className={`w-2 h-2 rounded-full ${item.status == 'active' ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                                    <p>{moneyFormat(item.total_collected)}</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center space-x-2 text-xs pt-2">
-                                <p>VOLUME</p>
-                                <p>
-                                    {item.volume}
-                                </p>
-                            </div>
-                            <div className="flex items-center space-x-2 text-xs pt-2">
-                                <p>Date</p>
-                                <p>
-                                    {dateFormat(item.created_at, 'dd MMM yyyy')}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    <p className="py-4 text-center bg-gray-50 text-sm">
+                        No data found.
+                    </p>
+                )}
+                
                 <div className="mt-4 pb-6">
                     <div className="flex items-center justify-center space-x-2">
                     <button

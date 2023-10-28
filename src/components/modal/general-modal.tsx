@@ -22,7 +22,8 @@ export default function generalModal({children,openModal,onClose,title,size,head
     return (
         <>
         {openModal ?
-            <div className="fixed inset-0 backdrop-blur-md bg-black/40 z-50">
+            <div className="fixed inset-0 z-50">
+                <div className="fixed inset-0 backdrop-blur-md bg-black/40 z-50" onClick={onClose}></div>
                 <div className={`fixed inset-0 z-50 lg:relative p-4 lg:pt-0 mx-auto bg-white ${sizeClassName} my-auto mt-0 shadow-lg rounded-lg pt-20 lg:mt-6`}>
                     <div className="">
                         {header ?

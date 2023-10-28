@@ -6,7 +6,6 @@ export const fetchData = async <T>(url: string): Promise<T> => {
             }
         return await response.json();
     } catch (error) {
-        console.error(error);
-        return [] as T;
+        throw error
     }
 };
