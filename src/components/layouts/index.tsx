@@ -12,7 +12,7 @@ export default function Layouts({children}:LayoutsProps) {
     const { showSidebar, setShowSidebar} = useMobileSidebar();
 
     return (
-        <div className="relative overflow-auto h-screen bg-primary-50">
+        <div className={`relative overflow-auto bg-primary-50 ${showSidebar? 'h-0' : 'h-screen'}`}>
             <Navbar 
                 hamburgerClick={()=> setShowSidebar(!showSidebar)} 
             />
