@@ -51,6 +51,9 @@ export function calculateOverallPercentage(data: any[]): string {
     const previousYear = Math.min(...years.map(year => parseInt(year, 10)));
     const calculatePercentageChange = ((totalPeryear[latestYear] - totalPeryear[previousYear]) / totalPeryear[previousYear]) * 100;
     const percentageChange = Math.abs(calculatePercentageChange).toFixed(2);
-
-    return percentageChange;
+    if (isNaN(parseFloat(percentageChange))) {
+        return '0';
+    } else {
+        return percentageChange;
+    }
 }
