@@ -6,7 +6,7 @@ import ChartCard from '@/components/card/chart-card';
 import GeneralCard from '@/components/card/general-card';
 import ColectionTable from '@/components/table/collections-table';
 import GeneralModal from '@/components/modal/general-modal';
-import {optionFilterDate} from '@/shared/option/option-date-data';
+import {optionFilterDate,filterDataBySelected} from '@/shared/option/option-date-data';
 import {MagnifyingGlassIcon,FunnelIcon} from '@heroicons/react/24/outline'
 import {
     moneyFormat, 
@@ -114,14 +114,17 @@ export default function BillingPage() {
                             {/* total paid card */}
                             <ChartCard
                                 title="Total Paid"
-                                total={moneyFormat(calculateTotal(totalPaid))}
-                                percentage={calculateOverallPercentage(totalPaid)}
-                                viewAllRoute=""
+                                total={moneyFormat(calculateTotal(filterDataBySelected(selected, totalPaid)))}
+                                percentage={calculateOverallPercentage(filterDataBySelected(selected, totalPaid))}
+                                type={
+                                    calculateOverallPercentage(filterDataBySelected(selected, totalPaid)) <= '20'?
+                                    'dropPercentage' : ''
+                                }
                                 viewAllTitle="View all"
                                 displayChart={
                                     <LineChart
                                         className="h-52 text-[0.55rem]"
-                                        data={totalPaid}
+                                        data={filterDataBySelected(selected, totalPaid)}
                                         index="date"
                                         categories={
                                             totalPaid.length > 0 ? 
@@ -161,7 +164,7 @@ export default function BillingPage() {
                                 <div className="space-y-2">
                                     <p className="text-xs text-gray-500">Total Paid</p>
                                     <h1 className="text-lg font-semibold text-green-500">
-                                        {moneyFormat(calculateTotal(totalPaid))}
+                                        {moneyFormat(calculateTotal(filterDataBySelected(selected, totalPaid)))}
                                     </h1>
                                 </div>
                             </div>

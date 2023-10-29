@@ -6,7 +6,7 @@ interface ChartCardProps {
     displayChart?: ReactNode,
     title: string,
     total:string,
-    viewAllRoute:string,
+    viewAllClick?:  () => void,
     viewAllTitle:string,
     percentage:string,
     type?:string,
@@ -17,7 +17,7 @@ export default function ChartCard({
     title,
     total,
     percentage,
-    viewAllRoute,
+    viewAllClick,
     viewAllTitle,
     type
 }: ChartCardProps) {
@@ -27,9 +27,9 @@ export default function ChartCard({
             <div className="px-4 py-4 space-y-2">
                 <div className="flex items-center justify-between  text-xs font-semibold">
                     <p>{title}</p>
-                    <Link href={viewAllRoute} className="text-primary-600 hover:text-primary-500">
+                    <button onClick={viewAllClick} className="text-primary-600 hover:text-primary-500">
                         {viewAllTitle}
-                    </Link>
+                    </button>
                 </div>
                 <div className="flex items-center space-x-2">
                     <h1 className="text-lg font-semibold">

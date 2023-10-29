@@ -5,7 +5,7 @@ import FilterDate from '@/components/menu/filter-date';
 import BarList from '@/components/chart/bar-list';
 import ChartCard from '@/components/card/chart-card';
 import GeneralCard from '@/components/card/general-card';
-import {optionFilterDate} from '@/shared/option/option-date-data';
+import {optionFilterDate,filterDataBySelected} from '@/shared/option/option-date-data';
 import {optionsActiveInactive,optionsPayment} from '@/shared/option/option-piechart';
 import { LineChart } from "@tremor/react";
 import { Chart } from "react-google-charts";
@@ -15,7 +15,7 @@ import {
     dateFormat,
     calculateTotal,
     calculateOverallPercentage,
-    calulateTotalGeneral
+    calulateTotalGeneral,
 } from '@/utils/formartter'
 import { 
     DashboardService,
@@ -69,7 +69,7 @@ export default function Dashboard() {
                 alert(error)
             }
     };
-    
+
     useEffect(() => {
         getData();
     }, []);
@@ -95,14 +95,17 @@ export default function Dashboard() {
                 {/* total collections card */}
                 <ChartCard
                     title="Total Collections"
-                    total={moneyFormat(calculateTotal(totalCollection))}
-                    percentage={calculateOverallPercentage(totalCollection)}
-                    viewAllRoute=""
+                    total={moneyFormat(calculateTotal(filterDataBySelected(selected, totalCollection)))}
+                    percentage={calculateOverallPercentage(filterDataBySelected(selected, totalCollection))}
+                    type={
+                        calculateOverallPercentage(filterDataBySelected(selected, totalCollection)) <= '20'?
+                        'dropPercentage' : ''
+                    }
                     viewAllTitle="View all"
                     displayChart={
                         <LineChart
                             className="h-52 text-[0.55rem]"
-                            data={totalCollection}
+                            data={filterDataBySelected(selected, totalCollection)}
                             index="date"
                             categories={
                                 totalCollection.length > 0 ? 
@@ -120,15 +123,17 @@ export default function Dashboard() {
                 {/* total transactions card */}
                 <ChartCard
                     title="Total Transactions"
-                    total={moneyFormat(calculateTotal(totalTransaction))}
-                    percentage={calculateOverallPercentage(totalTransaction)}
-                    viewAllRoute=""
-                    type="dropPercentage"
+                    total={moneyFormat(calculateTotal(filterDataBySelected(selected, totalTransaction)))}
+                    percentage={calculateOverallPercentage(filterDataBySelected(selected, totalTransaction))}
+                    type={
+                        calculateOverallPercentage(filterDataBySelected(selected, totalTransaction)) <= '20'?
+                        'dropPercentage' : ''
+                    }
                     viewAllTitle="View all"
                     displayChart={
                         <LineChart
                             className="h-52 text-[0.55rem]"
-                            data={totalTransaction}
+                            data={filterDataBySelected(selected, totalTransaction)}
                             index="date"
                             categories={
                                 totalTransaction.length > 0 ? 
@@ -182,14 +187,17 @@ export default function Dashboard() {
                 {/* total Payouts card */}
                 <ChartCard
                     title="Total Payout"
-                    total={moneyFormat(calculateTotal(totalPayout))}
-                    percentage={calculateOverallPercentage(totalPayout)}
-                    viewAllRoute=""
+                    total={moneyFormat(calculateTotal(filterDataBySelected(selected, totalPayout)))}
+                    percentage={calculateOverallPercentage(filterDataBySelected(selected, totalPayout))}
+                    type={
+                        calculateOverallPercentage(filterDataBySelected(selected, totalPayout)) <= '20'?
+                        'dropPercentage' : ''
+                    }
                     viewAllTitle="View all"
                     displayChart={
                         <LineChart
                             className="h-52 text-[0.55rem]"
-                            data={totalPayout}
+                            data={filterDataBySelected(selected,totalPayout)}
                             index="date"
                             categories={
                                 totalPayout.length > 0 ? 
