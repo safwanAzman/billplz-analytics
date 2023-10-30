@@ -33,7 +33,7 @@ Link: https://billplz-analytics.vercel.app/
 ![App Screenshot](https://i.ibb.co/WWzxKD1/billing.png)
 
 **Subscription:**
-![App Screenshot](https://i.ibb.co/rvwh5rp/subscription.png)
+![App Screenshot](https://i.ibb.co/FHNcPWw/subscription.png)
 
 
 
