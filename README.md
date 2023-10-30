@@ -25,6 +25,17 @@ Link: https://billplz-analytics.vercel.app/
 
 ![App Screenshot](https://i.ibb.co/swJyQyZ/Screenshot-2023-10-28-at-4-06-59-PM.png)
 
+## Lighthouse
+**Dashboard:**
+![App Screenshot](https://i.ibb.co/br5B9Rb/dashboard.png)
+
+**Billing:**
+![App Screenshot](https://i.ibb.co/WWzxKD1/billing.png)
+
+**Subscription:**
+![App Screenshot](https://i.ibb.co/rvwh5rp/subscription.png)
+
+
 
 ## Tech Stack
 
