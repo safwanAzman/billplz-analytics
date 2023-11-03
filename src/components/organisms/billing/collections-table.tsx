@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Menu } from '@headlessui/react'
 import clipboard from 'clipboard-copy';
 import { EllipsisVerticalIcon, Square2StackIcon } from '@heroicons/react/24/outline'
-import MenuDropdown from '@/components/menu/menu-dropdown';
+import MenuDropdown from '@/components/atoms/menu/menu-dropdown';
 import {moneyFormat , dateFormat} from '@/utils/formartter'
 
 interface CollectionTableProps {

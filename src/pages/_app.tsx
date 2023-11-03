@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Loading from '@/components/loading';
+import Loading from '@/components/molecules/loading';
 import { MobileSidebarProvider } from '@/context/MobileSidebarContext';
 
 export default function App({ Component, pageProps }: AppProps) {

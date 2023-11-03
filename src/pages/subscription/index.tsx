@@ -1,6 +1,6 @@
 import React , { useState,useEffect } from 'react'
-import Container from '@/components/container';
-import GeneralModal from '@/components/modal/general-modal';
+import Container from '@/components/layouts/container';
+import GeneralModal from '@/components/atoms/modal/general-modal';
 import { SubscribeService , CollectionItem} from '@/services/subscription';
 
 export default function Subscription() {

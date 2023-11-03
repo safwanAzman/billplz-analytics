@@ -1,4 +1,4 @@
-import LottieLoading from '@/components/lottie/LottieLoading';
+import LottieLoading from '@/components/atoms/lottie/LottieLoading';
 export default function Loading() {
     return (
         <div className="fixed inset-0 flex flex-col items-center justify-center h-screen text-black bg-white/50 backdrop-blur-lg">

@@ -1,5 +1,5 @@
 
-import NavItem from "@/components/sidebar/nav-item";
+import NavItem from "@/components/atoms/sidebar/nav-item";
 import Link from "next/link";
 import { 
     HomeIcon,

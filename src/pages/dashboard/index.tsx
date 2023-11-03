@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react'
 import Link from 'next/link';
-import Container from '@/components/container';
-import FilterDate from '@/components/menu/filter-date';
-import BarList from '@/components/chart/bar-list';
-import ChartCard from '@/components/card/chart-card';
-import GeneralCard from '@/components/card/general-card';
+import Container from '@/components/layouts/container';
+import FilterDate from '@/components/atoms/menu/filter-date';
+import BarList from '@/components/atoms/chart/bar-list';
+import ChartCard from '@/components/atoms/card/chart-card';
+import GeneralCard from '@/components/atoms/card/general-card';
 import {optionFilterDate,filterDataBySelected} from '@/shared/option/option-date-data';
 import {optionsActiveInactive,optionsPayment} from '@/shared/option/option-piechart';
 import { LineChart } from "@tremor/react";

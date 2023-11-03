@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef} from 'react';
 import lottie from 'lottie-web';
-import animate from '@/components/lottie/loadingAnimate.json';
+import loadingJson from '@/components/atoms/lottie/json/loading.json';
 
 const LottieLoadingAnimated = () => {
     const containerRef = useRef<HTMLDivElement | null>(null);
@@ -14,7 +14,7 @@ const LottieLoadingAnimated = () => {
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            animationData: animate,
+            animationData: loadingJson,
         });
     
         return () => {
