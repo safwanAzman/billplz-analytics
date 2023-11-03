@@ -30,10 +30,14 @@ export default function CollectionTable({data,search, startDate, endDate}:Collec
         const nameMatch = item.collection_name.toLowerCase().includes(search.toLowerCase());
         const idMatch = item.collection_id.toLowerCase().includes(search.toLowerCase());
         const date = new Date(item.created_at);
-        const startDateMatch = !startDate || date >= startDate;
-        const endDateMatch = !endDate || date <= endDate;
-    
-        return (nameMatch || idMatch) && startDateMatch && endDateMatch;
+        if (endDate === null || endDate === undefined)  {
+            const startDateMatch = !startDate || date.toDateString() == startDate.toDateString();
+            return (nameMatch || idMatch) && startDateMatch;
+        } else {
+            const startDateMatch = !startDate || date >= startDate;
+            const endDateMatch = date <= endDate;
+            return (nameMatch || idMatch) && startDateMatch && endDateMatch;
+        }
     });
 
 
@@ -274,7 +278,6 @@ export default function CollectionTable({data,search, startDate, endDate}:Collec
                     </div>
                 </div>
             </div>
-            
         </>
     );
 }

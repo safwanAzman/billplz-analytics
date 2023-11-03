@@ -10,3 +10,5 @@
 [id^="google-visualization-errors"] {
     display: none;
 }
+
+* { -webkit-tap-highlight-color: rgba(0,0,0,0); }
