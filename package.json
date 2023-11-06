@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@tremor/react": "^3.10.0",
+    "axios": "^1.6.0",
     "clipboard-copy": "^4.0.1",
     "date-fns": "^2.30.0",
     "lottie-web": "^5.12.2",

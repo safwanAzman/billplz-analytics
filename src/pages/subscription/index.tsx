@@ -15,8 +15,8 @@ export default function Subscription() {
         try {
             const subscriptionData = await SubscribeService.readSubscribe();
             setSubscription(subscriptionData);
-        } catch (error) {
-            alert(error)
+        } catch (error:any) {
+            alert(error.statusText)
         }
     };
     useEffect(() => {

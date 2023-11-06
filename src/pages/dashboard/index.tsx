@@ -65,8 +65,9 @@ export default function Dashboard() {
             setTop5Performing(top5PerformingData);
             setActiveInactive(activeInactiveData);
             setPaymentMethod(paymentMethodData);
-            } catch (error) {
-                alert(error)
+            
+            } catch (error:any) {
+                alert(error.statusText)
             }
     };
 

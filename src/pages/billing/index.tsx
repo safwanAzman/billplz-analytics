@@ -81,8 +81,8 @@ export default function BillingPage() {
         setTop5Performing(top5PerformingData);
         setTotalPaid(totalPaidData);
 
-        } catch (error) {
-            alert(error)
+        } catch (error:any) {
+            alert(error.statusText)
         }
     };
 

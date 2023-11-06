@@ -1,4 +1,4 @@
-import { fetchData } from "@/helpers/fetchData";
+import axios  from '@/helpers/axios';
 
 export interface CollectionItem {
     title:string,
@@ -8,6 +8,7 @@ export interface CollectionItem {
 
 export const SubscribeService = {
     readSubscribe: async (): Promise<CollectionItem[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/subscription`);
+        const response = await axios.get('/subscription')
+        return response.data
     },
 };

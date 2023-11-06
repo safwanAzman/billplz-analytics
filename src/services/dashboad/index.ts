@@ -1,4 +1,4 @@
-import { fetchData } from "@/helpers/fetchData";
+import axios  from '@/helpers/axios';
 
 export interface CollectionLineChart {
     [key: string]: number;
@@ -21,24 +21,31 @@ export interface CollectionTop5 {
 
 export const DashboardService = {
     readTotalCollection: async (): Promise<CollectionLineChart[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/total-collection`);
+        const response = await axios.get('/total-collection')
+        return response.data
     },
     readTotalTransaction: async (): Promise<CollectionLineChart[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/total-transaction`);
+        const response = await axios.get('/total-transaction')
+        return response.data
     },
     readUpcomingFpx: async (): Promise<CollectionFpxUpcoming[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/upcoming-fpx`);
+        const response = await axios.get('/upcoming-fpx')
+        return response.data
     },
     readTotalPayout: async (): Promise<CollectionLineChart[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/total-payout`);
+        const response = await axios.get('/total-payout')
+        return response.data
     },
     readTop5Performing: async (): Promise<CollectionTop5[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/collection-top5`);
+        const response = await axios.get('/collection-top5')
+        return response.data
     },
     readActiveInactive: async (): Promise<CollectionPieChart[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/active-inactive-collection`);
+        const response = await axios.get('/active-inactive-collection')
+        return response.data
     },
     readPaymentMethod: async (): Promise<CollectionPieChart[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/payment-collection`);
+        const response = await axios.get('/payment-collection')
+        return response.data
     },
 };

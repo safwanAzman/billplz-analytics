@@ -1,4 +1,4 @@
-import { fetchData } from "@/helpers/fetchData";
+import axios  from '@/helpers/axios';
 
 export interface CollectionItem {
     id: number;
@@ -24,12 +24,15 @@ export interface CollectionTop5 {
 
 export const BillingService = {
     readTop5Performing: async (): Promise<CollectionTop5[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/collection-top5`);
+        const response = await axios.get('/collection-top5')
+        return response.data
     },
     readTotalCollection: async (): Promise<CollectionItem[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/collection-billing`);
+        const response = await axios.get('/collection-billing')
+        return response.data
     },
     readTotalPaid: async (): Promise<CollectionLineChart[]> => {
-        return fetchData(`${process.env.NEXT_PUBLIC_MOCKUP_API_URL}/total-paid`);
+        const response = await axios.get('/total-paid')
+        return response.data
     },
 };
