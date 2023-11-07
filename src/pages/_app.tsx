@@ -44,6 +44,10 @@ export default function App({ Component, pageProps }: AppProps) {
             name="description"
             content="Billplz - Billplz Analytics"
           />
+        <meta 
+          name="viewport" 
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0 user-scalable=no"
+        />
       </Head>
       <MobileSidebarProvider>
         {isLoading ? <Loading/>: <Component {...pageProps} />}
