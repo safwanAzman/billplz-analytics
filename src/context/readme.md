@@ -1,0 +1,1 @@
+**related logic for sharing and managing state across components in your application**

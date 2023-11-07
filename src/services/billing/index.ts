@@ -1,25 +1,5 @@
 import axios  from '@/helpers/axios';
-
-export interface CollectionItem {
-    id: number;
-    title: string;
-    total: number;
-    percentageValue: number;
-    collection_name: string,
-    collection_id: string,
-    total_collected: number,
-    status:string,
-    volume: number,
-    created_at: string,
-}
-export interface CollectionLineChart {
-    [key: string]: number;
-}
-export interface CollectionTop5 {
-    id:number,
-    date:string,
-    total:number
-}
+import {CollectionItem,CollectionLineChart,CollectionTop5} from '@/types'
 
 
 export const BillingService = {

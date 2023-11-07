@@ -17,14 +17,14 @@ import {
     calculateOverallPercentage,
     calulateTotalGeneral,
 } from '@/utils/formartter'
-import { 
-    DashboardService,
-    CollectionLineChart,
+import {
     CollectionPieChart,
-    CollectionFpxUpcoming,
-    CollectionTop5
-} 
-from '@/services/dashboad';
+    CollectionLineChart,
+    CollectionTop5,
+    CollectionFpxUpcoming
+} from '@/types'
+
+import {DashboardService} from '@/services/dashboad';
 
 export default function Dashboard() {
     const [selected, setSelected] = useState(optionFilterDate[2])

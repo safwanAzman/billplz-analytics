@@ -1,13 +1,8 @@
 import axios  from '@/helpers/axios';
-
-export interface CollectionItem {
-    title:string,
-    price:string,
-    item:string[]
-}
+import {Subscribe} from '@/types'
 
 export const SubscribeService = {
-    readSubscribe: async (): Promise<CollectionItem[]> => {
+    readSubscribe: async (): Promise<Subscribe[]> => {
         const response = await axios.get('/subscription')
         return response.data
     },

@@ -1,0 +1,1 @@
+**typically used to store TypeScript declaration files**

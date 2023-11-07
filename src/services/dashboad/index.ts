@@ -1,23 +1,5 @@
 import axios  from '@/helpers/axios';
-
-export interface CollectionLineChart {
-    [key: string]: number;
-}
-export interface CollectionPieChart {
-    data:string[]
-}
-
-export interface CollectionFpxUpcoming {
-    id:number,
-    date:string,
-    total:number
-}
-
-export interface CollectionTop5 {
-    id:number,
-    date:string,
-    total:number
-}
+import {CollectionPieChart,CollectionLineChart,CollectionTop5,CollectionFpxUpcoming} from '@/types'
 
 export const DashboardService = {
     readTotalCollection: async (): Promise<CollectionLineChart[]> => {

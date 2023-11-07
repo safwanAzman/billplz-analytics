@@ -4,7 +4,7 @@ import FilterDate from '@/components/atoms/menu/filter-date';
 import BarList from '@/components/atoms/chart/bar-list';
 import ChartCard from '@/components/atoms/card/chart-card';
 import GeneralCard from '@/components/atoms/card/general-card';
-import ColectionTable from '@/components/organisms/billing/collections-table';
+import ColectionTable from '@/modules/billing/collections-table';
 import GeneralModal from '@/components/atoms/modal/general-modal';
 import {optionFilterDate,filterDataBySelected} from '@/shared/option/option-date-data';
 import {MagnifyingGlassIcon,FunnelIcon} from '@heroicons/react/24/outline'
@@ -25,12 +25,13 @@ import {
     DateRangePickerValue
 } 
 from "@tremor/react";
+import {
+    CollectionItem,
+    CollectionLineChart,
+    CollectionTop5
+} from '@/types'
 
-import { BillingService , 
-    CollectionItem , 
-    CollectionTop5,
-    CollectionLineChart
-} from '@/services/billing';
+import {BillingService} from '@/services/billing';
 
 export default function BillingPage() {
 

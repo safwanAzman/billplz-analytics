@@ -1,0 +1,1 @@
+**You can place components that are used in multiple pages or sections of your application in the "shared" folder. This makes it easy to reuse these components without duplicating code** 

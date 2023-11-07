@@ -1,0 +1,1 @@
+**store functions that handle data formatting, validation, or other common tasks. These functions can then be imported and used in different components or pages of your application to keep your code DRY (Don't Repeat Yourself) and maintainable.**

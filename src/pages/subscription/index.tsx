@@ -1,11 +1,12 @@
 import React , { useState,useEffect } from 'react'
 import Container from '@/components/layouts/container';
 import GeneralModal from '@/components/atoms/modal/general-modal';
-import { SubscribeService , CollectionItem} from '@/services/subscription';
+import {Subscribe} from '@/types'
+import { SubscribeService} from '@/services/subscription';
 
 export default function Subscription() {
     const [openSubModal, setOpenSubModal] = useState<boolean>(false)
-    const [subscription, setSubscription] = useState<CollectionItem[]>([])
+    const [subscription, setSubscription] = useState<Subscribe[]>([])
     const [typePlan, setTypePlan] = useState({
         type: "",
         price: "",
